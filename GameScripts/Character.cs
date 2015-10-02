@@ -10,8 +10,8 @@ public class Character {
 	 * 
 	 */ 
 	public int health;
-	public int attack;
-	public int speed;
+	//public int attack;
+	public float speed;
 
 	/*
 	 * 
@@ -22,7 +22,7 @@ public class Character {
 	{
 
 		health = 100;
-		attack = 10;
+		//attack = 10;
 		speed = 5;
 
 	}
@@ -32,18 +32,18 @@ public class Character {
 	 * Parameter Constructor
 	 * 
 	 */ 
-	public Character(int aHealthVal, int anAttVal, int aSpeedVal)
+	public Character(int aHealthVal, int aSpeedVal)
 	{
 
 		setHealth(aHealthVal);
-		setAttack(anAttVal);
+		//setAttack(anAttVal);
 		setSpeed(aSpeedVal);
 
 	}
 
 	/*
 	 * 
-	 * Accessors
+	 * Mutators
 	 * 
 	 */ 
 	public void setHealth(int aHealthVal)
@@ -53,12 +53,13 @@ public class Character {
 
 	}
 
-	public void setAttack(int anAttVal)
+	//TODO I BELIEVE WE WILL BE USING AttackValues FOR OUR ATTACKING INSTEAD OF THIS METHOD
+	/*public void setAttack(int anAttVal)
 	{
 
 		attack = anAttVal;
 
-	}
+	}*/
 
 	public void setSpeed(int aSpeedVal)
 	{
@@ -69,7 +70,7 @@ public class Character {
 
 	/*
 	 * 
-	 * Mutators
+	 * Accessing
 	 * 
 	 */ 
 	public int getHealth()
@@ -79,14 +80,14 @@ public class Character {
 
 	}
 
-	public int getAttack()
+	/*public int getAttack()
 	{
 
 		return attack;
 
-	}
+	}*/
 
-	public int getSpeed()
+	public float getSpeed()
 	{
 
 		return speed;

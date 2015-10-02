@@ -5,6 +5,7 @@ using System.Collections;
 public class NanoByte : Character {
 		
 	public int experiencePoints;
+	public AttackValues attackValues;
 
 	/*
 	 *
@@ -13,17 +14,17 @@ public class NanoByte : Character {
 	**/
 	public NanoByte()
 	{
-
+		attackValues = new AttackValues(10, 0, 0, 0, 0);
 		setHealth(100);
-		setAttack(10);
 		setSpeed(5);
 		experiencePoints = 0;
 
 	}
 
-	public NanoByte(int aHealth, int anAttack, int aSpeed, int expPts) : base(aHealth, anAttack, aSpeed)
+	public NanoByte(int aHealth, int anAttack, int aSpeed, int expPts) : base(aHealth, aSpeed)
 	{
 
+		attackValues.setStandardAttack(anAttack);
 		setExperience(expPts);
 		
 	}
@@ -56,10 +57,16 @@ public class NanoByte : Character {
 
 	}
 
+	/*
+	 * 
+	 * TODO We can set up buttons to correspond to int values, and pass them in here and in the AttackValues
+	 * 	class in order to manipulate the attack values in-game
+	 * 
+	**/
 	public void levelUpAttack(int anAttack)
 	{
 		
-		setAttack(anAttack);
+		attackValues.setStandardAttack(anAttack);
 		
 	}
 
