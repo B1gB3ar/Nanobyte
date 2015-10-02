@@ -26,11 +26,11 @@ public class TestIns : MonoBehaviour {
 		if(children.Length == 5)
 		{
 
-			children[0].GetComponent<Text>().text = nanoBit.attackValues.getSpecial4Attack().ToString();
-			children[1].GetComponent<Text>().text = nanoBit.attackValues.getSpecial3Attack().ToString();
+			children[4].GetComponent<Text>().text = nanoBit.attackValues.getSpecial4Attack().ToString();
+			children[3].GetComponent<Text>().text = nanoBit.attackValues.getSpecial3Attack().ToString();
 			children[2].GetComponent<Text>().text = nanoBit.attackValues.getSpecial2Attack().ToString();
-			children[3].GetComponent<Text>().text = nanoBit.attackValues.getSpecial1Attack().ToString();
-			children[4].GetComponent<Text>().text = nanoBit.attackValues.getStandardAttack().ToString();
+			children[1].GetComponent<Text>().text = nanoBit.attackValues.getSpecial1Attack().ToString();
+			children[0].GetComponent<Text>().text = nanoBit.attackValues.getStandardAttack().ToString();
 
 		}
 
