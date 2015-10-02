@@ -10,7 +10,6 @@ public class Character {
 	 * 
 	 */ 
 	public int health;
-	//public int attack;
 	public float speed;
 
 	/*
@@ -22,7 +21,6 @@ public class Character {
 	{
 
 		health = 100;
-		//attack = 10;
 		speed = 5;
 
 	}
@@ -36,7 +34,6 @@ public class Character {
 	{
 
 		setHealth(aHealthVal);
-		//setAttack(anAttVal);
 		setSpeed(aSpeedVal);
 
 	}
@@ -52,15 +49,6 @@ public class Character {
 		health = aHealthVal;
 
 	}
-
-	//TODO I BELIEVE WE WILL BE USING AttackValues FOR OUR ATTACKING INSTEAD OF THIS METHOD
-	/*public void setAttack(int anAttVal)
-	{
-
-		attack = anAttVal;
-
-	}*/
-
 	public void setSpeed(int aSpeedVal)
 	{
 
@@ -79,14 +67,6 @@ public class Character {
 		return health;
 
 	}
-
-	/*public int getAttack()
-	{
-
-		return attack;
-
-	}*/
-
 	public float getSpeed()
 	{
 

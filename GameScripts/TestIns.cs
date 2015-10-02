@@ -6,19 +6,12 @@ using System.Collections.Generic;
 public class TestIns : MonoBehaviour {
 
 	public NanoByte nanoBit;
-	public Animator nanoAnim;
 
-	/*public static Text displayStdAtt;
-	public static Text displaySpec1;
-	public static Text displaySpec2;
-	public static Text displaySpec3;
-	public static Text displaySpec4;*/
+	public Animator nanoAnim;
 	public static Text[] children = new Text[5];
 
 	// Use this for initialization
 	void Awake () {
-
-		//GameObject[] objects = GameObject.FindGameObjectsWithTag("Display");
 
 		children = GameObject.FindGameObjectWithTag("Display").GetComponentsInChildren<Text>();
 		Debug.Log(children.Length);
