@@ -18,15 +18,11 @@ public class NanoByte : Character {
 		setHealth(100);
 		setSpeed(5);
 		experiencePoints = 0;
-
 	}
-
 	public NanoByte(int aHealth, int anAttack, int aSpeed, int expPts) : base(aHealth, aSpeed)
 	{
-
 		attackValues.setStandardAttack(anAttack);
-		setExperience(expPts);
-		
+		setExperience(expPts);	
 	}
 
 	public void setExperience(int expPts)
