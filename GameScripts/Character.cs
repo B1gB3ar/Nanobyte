@@ -49,7 +49,7 @@ public class Character {
 		health = aHealthVal;
 
 	}
-	public void setSpeed(int aSpeedVal)
+	public void setSpeed(float aSpeedVal)
 	{
 
 		speed = aSpeedVal;
