@@ -4,8 +4,9 @@ using UnityEngine.EventSystems;
 
 public class Select : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler {
 
-	public GameObject selector;
-	public Vector3 initScale;
+	public RectTransform selector;
+	Vector2 sceneMousePositionBegin;
+	Vector2 sceneMousePositionEnd;
 
 	/******
 	 * 
@@ -15,28 +16,36 @@ public class Select : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointer
 	**/ 
 	public void OnPointerDown (PointerEventData eventData)
 	{
-		Debug.Log("Begin Click");
-		selector.gameObject.SetActive(true);
-		Vector3 sceneMousePositionBegin = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-		sceneMousePositionBegin.z = 0;
-		selector.transform.position = sceneMousePositionBegin;
-		initScale = selector.transform.localScale;
+		sceneMousePositionBegin = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+		selector.anchoredPosition = sceneMousePositionBegin;
 	}
 
 	public void OnDrag (PointerEventData eventData)
 	{
+		sceneMousePositionEnd = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+		Vector2 startPoint = sceneMousePositionBegin;
+		Vector2 difference = sceneMousePositionEnd - startPoint;
 
-		Vector3 sceneMousePositionEnd = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-		sceneMousePositionEnd.z = 0;
-		selector.transform.localScale = new Vector3(-sceneMousePositionEnd.x, sceneMousePositionEnd.y, 0);
-		Debug.Log("Dragging: " + sceneMousePositionEnd);
+		if (difference.x < 0)
+		{
+			startPoint.x = sceneMousePositionEnd.x;
+			difference.x = -difference.x;
+		}
+		if (difference.y < 0)
+		{
+			startPoint.y = sceneMousePositionEnd.y;
+			difference.y = -difference.y;
+		}
+
+		selector.anchoredPosition = startPoint;
+		selector.sizeDelta = difference;
 	}
-
+	
 	public void OnPointerUp (PointerEventData eventData)
 	{
-		Debug.Log("End Click");
-		selector.transform.localScale = initScale;
-		selector.gameObject.SetActive(false);
+		selector.anchoredPosition = Vector2.zero;
+		selector.sizeDelta = Vector2.zero;
+		sceneMousePositionBegin = Vector2.zero;
 	}
 	
 }
