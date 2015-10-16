@@ -5,11 +5,18 @@ using System.Collections.Generic;
 
 public class TestIns : MonoBehaviour {
 
+	public GameObject nanoByteGameObject;
 	public NanoByte nanoByte;
+	public List<NanoBit> nanoBits = new List<NanoBit>();
+	public List<GameObject> holderForBits = new List<GameObject>();
 	public Animator nanoAnim;
 	public static int LENGTH = 7;
 	public static Text[] children = new Text[LENGTH];
-	
+
+	public float counter = 0f;
+	Vector3 lastMove = Vector3.zero;
+	Vector3 move = Vector3.zero;
+
 	// Use this for initialization
 	void Awake () {
 		nanoByte = new NanoByte();
@@ -33,11 +40,38 @@ public class TestIns : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-		
-		Vector3 move = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
+		if(lastMove != move)
+			nanoByte.setLocation(nanoByteGameObject.transform.position);
+
+		move = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
 		transform.position += move * nanoByte.getSpeed() * Time.deltaTime;
 		nanoAnim.SetFloat ("Speed", Mathf.Abs(move.x + move.y));
-		
+		lastMove = move;
+
+	}
+
+	void Update()
+	{
+
+		counter += Time.deltaTime;
+		if(counter >= 10.0f && holderForBits.Count < 25)
+		{
+			spawnNanoBit();
+			counter = 0.0f;
+
+		}
+
+	}
+
+	public void spawnNanoBit()
+	{
+
+		GameObject nanoBot = Instantiate(Resources.Load("NanoBit") as GameObject);
+		Debug.Log(nanoByte.getLocation());
+		nanoBot.transform.position = nanoByte.getLocation();
+		holderForBits.Add(nanoBot);
+		Debug.Log(holderForBits.Count);
+
 	}
 	
 	//(COMPLETED) Use parameter to get which button was clicked and pass that in as a parameter so we can

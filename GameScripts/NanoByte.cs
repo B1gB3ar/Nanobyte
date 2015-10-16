@@ -11,9 +11,11 @@ public class NanoByte : Character {
 		attackValues = new AttackValues(10, 0, 0, 0, 0);
 		base.setHealth(100);
 		base.setSpeed(5.0f);
+		base.setLocation(Vector3.zero);
 		experiencePoints = 0;
 	}
-	public NanoByte(int aHealth, float aSpeed, int anAttack, int expPts) : base(aHealth, aSpeed)
+	public NanoByte(int aHealth, float aSpeed, int anAttack, int expPts, Vector2 aLocation) : base(aHealth, aSpeed, 
+	                                                                                               aLocation)
 	{
 		attackValues.setStandardAttack(anAttack);
 		this.setExperience(expPts);	
