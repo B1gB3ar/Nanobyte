@@ -19,6 +19,7 @@ public class Character {
 	{
 		setHealth(aHealthVal);
 		setSpeed(aSpeedVal);
+		setLocation(aLocation);
 	}
 
 	public void setHealth(int aHealthVal)
@@ -29,7 +30,7 @@ public class Character {
 	{
 		speed = aSpeedVal;
 	}
-	public void setLocation(Vector3 aLocation)
+	public void setLocation(Vector2 aLocation)
 	{
 		location = aLocation;
 	}

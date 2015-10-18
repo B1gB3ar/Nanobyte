@@ -1,15 +1,37 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class Select : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler {
 
 	public RectTransform selector;
-	public TestIns testInspector;
+	public GameObject selectorBoxCol;
 	Vector2 sceneMousePositionBegin;
 	Vector2 sceneMousePositionEnd;
-	public PolygonCollider2D zoneForSelection;
-	
+	PointerEventData eventData;
+	public NanoByteIns nanoByteInspector;
+
+	void Update()
+	{
+
+		if(Input.GetKeyDown(KeyCode.Escape))
+		{
+			OnPointerUp(eventData);
+			Debug.Log(nanoByteInspector.nanoBits.Count);
+			for(int i = 0; i < nanoByteInspector.nanoBits.Count; ++i)
+			{
+				Debug.Log("Selected?: " + nanoByteInspector.nanoBits[i].isSelected);
+				if(nanoByteInspector.nanoBits[i].isSelected)
+				{
+					nanoByteInspector.nanoBits[i].setSelection(false);
+					Debug.Log("Deselected: " + nanoByteInspector.holderForBits[i].name);
+				}
+			}
+		}
+
+	}
+
 	public void OnPointerDown (PointerEventData eventData)
 	{
 		sceneMousePositionBegin = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
@@ -35,25 +57,15 @@ public class Select : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointer
 
 		selector.anchoredPosition = startPoint;
 		selector.sizeDelta = difference;
+		selectorBoxCol.GetComponent<BoxCollider2D>().size = difference;
 	}
 	
 	public void OnPointerUp (PointerEventData eventData)
 	{
-		Debug.Log("Size: " + zoneForSelection.bounds.size);
-		for(int i = 0; i < testInspector.nanoBits.Count; ++i)
-		{
-			Debug.Log("NanoBits Location: " + i + testInspector.nanoBits[i].getLocation());
-			if(testInspector.nanoBits[i].isSelected && testInspector.nanoBits[i].getLocation().x >= 
-			   zoneForSelection.bounds.size.x)
-			{
-
-				Debug.Log(i + " Contained");
-			}
-		}
-
 		selector.anchoredPosition = Vector2.zero;
 		selector.sizeDelta = Vector2.zero;
 		sceneMousePositionBegin = Vector2.zero;
+		selectorBoxCol.GetComponent<BoxCollider2D>().size = Vector2.zero;
 	}
-	
+
 }
