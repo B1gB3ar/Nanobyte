@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class NanoByte : Character {
@@ -9,12 +10,12 @@ public class NanoByte : Character {
 	public NanoByte()
 	{
 		attackValues = new AttackValues(10, 0, 0, 0, 0);
-		base.setHealth(100);
+		base.setHealth(100.0f);
 		base.setSpeed(5.0f);
 		base.setLocation(Vector3.zero);
 		experiencePoints = 0;
 	}
-	public NanoByte(int aHealth, float aSpeed, int anAttack, int expPts, Vector2 aLocation) : base(aHealth, aSpeed, 
+	public NanoByte(float aHealth, float aSpeed, int anAttack, int expPts, Vector2 aLocation) : base(aHealth, aSpeed, 
 	                                                                                               aLocation)
 	{
 		attackValues.setStandardAttack(anAttack);
@@ -30,7 +31,7 @@ public class NanoByte : Character {
 		return experiencePoints;
 	}
 
-	public void levelUpHealth(int aHealth)
+	public void levelUpHealth(float aHealth)
 	{
 		base.setHealth(aHealth);
 	}
@@ -42,4 +43,13 @@ public class NanoByte : Character {
 	{
 		base.setSpeed(aSpeed);
 	}
+	public void updateHealth(Slider healthBar)
+	{
+		healthBar.value = Mathf.Lerp(healthBar.value, base.getHealth(), 1);
+	}
+	public void inflictDamage(int damage)
+	{
+		base.setHealth(base.getHealth() - damage);
+	}
+
 }

@@ -3,7 +3,7 @@ using System.Collections;
 [System.Serializable]
 public class Character {
 
-	public int health;
+	public float health;
 	public float speed;
 	public Vector2 location;
 
@@ -11,18 +11,18 @@ public class Character {
 
 	public Character()
 	{
-		health = 100;
+		health = 100.0f;
 		speed = 5.0f;
 		location = Vector2.zero;
 	}
-	public Character(int aHealthVal, float aSpeedVal, Vector2 aLocation)
+	public Character(float aHealthVal, float aSpeedVal, Vector2 aLocation)
 	{
 		setHealth(aHealthVal);
 		setSpeed(aSpeedVal);
 		setLocation(aLocation);
 	}
 
-	public void setHealth(int aHealthVal)
+	public void setHealth(float aHealthVal)
 	{
 		health = aHealthVal;
 	}
@@ -35,7 +35,7 @@ public class Character {
 		location = aLocation;
 	}
  
-	public int getHealth()
+	public float getHealth()
 	{
 		return health;
 	}

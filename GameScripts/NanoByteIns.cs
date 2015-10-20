@@ -12,6 +12,7 @@ public class NanoByteIns : MonoBehaviour {
 	public Animator nanoAnim;
 	public const int LENGTH = 7;
 	public Text[] displayStats = new Text[LENGTH];
+	public Slider healthBar;
 
 	public int nanoBitNumber;
 
@@ -166,6 +167,12 @@ public class NanoByteIns : MonoBehaviour {
 			
 		}
 		
+	}
+	
+	public void damagePlayer(int damage)
+	{
+		nanoByte.inflictDamage(damage);
+		nanoByte.updateHealth(healthBar);
 	}
 	
 }
