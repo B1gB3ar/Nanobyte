@@ -41,7 +41,6 @@ public class NanoBit : Character {
 	{
 
 		// I believe this stops the movement with no computations being made
-		//TODO Stop the movement of the bit while selected
 
 	}
 	public void nanoBitMovement(Transform movement)
