@@ -31,9 +31,10 @@ public class NanoByte : Character {
 		return experiencePoints;
 	}
 
-	public void levelUpHealth(float aHealth)
+	public void levelUpHealth(float aHealth, Slider healthBar)
 	{
 		base.setHealth(aHealth);
+		healthBar.maxValue = base.getHealth();
 	}
 	public void levelUpAttack(int anAttack)
 	{

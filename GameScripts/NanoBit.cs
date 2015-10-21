@@ -40,13 +40,13 @@ public class NanoBit : Character {
 	public void stopNanoBitMovement()
 	{
 
+		// I believe this stops the movement with no computations being made
 		//TODO Stop the movement of the bit while selected
 
 	}
 	public void nanoBitMovement(Transform movement)
 	{
 
-		//TODO Start the movement of the bit when deselected
 		int randNumb = Random.Range(1, 9);
 		float heading = 0f;
 

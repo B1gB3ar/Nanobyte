@@ -10,8 +10,8 @@ public class NanoByteIns : MonoBehaviour {
 	public List<NanoBit> nanoBits = new List<NanoBit>();
 	public List<GameObject> holderForBits = new List<GameObject>();
 	public Animator nanoAnim;
-	public const int LENGTH = 7;
-	public Text[] displayStats = new Text[LENGTH];
+	//public const int LENGTH = 7;
+	//public Text[] displayStats = new Text[LENGTH];
 	public Slider healthBar;
 
 	public int nanoBitNumber;
@@ -23,7 +23,7 @@ public class NanoByteIns : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {
 		nanoByte = new NanoByte();
-		displayStats = GameObject.FindGameObjectWithTag("Display").GetComponentsInChildren<Text>();
+		/*displayStats = GameObject.FindGameObjectWithTag("Display").GetComponentsInChildren<Text>();
 		
 		if(displayStats.Length == 7)
 		{
@@ -36,7 +36,7 @@ public class NanoByteIns : MonoBehaviour {
 			displayStats[5].GetComponent<Text>().text = nanoByte.attackValues.getSpecial3Attack().ToString();
 			displayStats[6].GetComponent<Text>().text = nanoByte.attackValues.getSpecial4Attack().ToString();
 
-		}
+		}*/
 
 		nanoByte.setLocation(nanoByteGameObject.transform.position);
 		
@@ -83,15 +83,16 @@ public class NanoByteIns : MonoBehaviour {
 		nanoBits.Add(nanoBitInst.GetComponent<NanoBitIns>().nanobit);
 		Debug.Log("Created " + nanoBitInst.name);
 		++nanoBitNumber;
+		damagePlayer(15);
 	}
 
 	public void clickedALevelChanger(Button button)
 	{
-		Debug.Log(button.name.Split('-')[1]);
-		this.setAttackBasedOnString(button.name.Split('-')[1], int.Parse(button.name.Split('-')[0]));
+
+		//this.setAttackBasedOnString(button.name.Split('-')[1], int.Parse(button.name.Split('-')[0]));
 	}
 
-	public void setAttackBasedOnString(string buttonName, int index)
+	/*public void setAttackBasedOnString(string buttonName, int index)
 	{
 		
 		switch(buttonName)
@@ -167,7 +168,7 @@ public class NanoByteIns : MonoBehaviour {
 			
 		}
 		
-	}
+	}*/
 	
 	public void damagePlayer(int damage)
 	{
