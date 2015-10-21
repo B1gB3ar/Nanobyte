@@ -4,8 +4,9 @@ using System.Collections;
 [System.Serializable]
 public class NanoBit : Character {
 
-	public bool isSelected; //If this is not selected, we will inlcude this in our calculation
+	public bool isSelected;
 	public bool containedWithByte;
+	public bool isAttacking;
 
 	public NanoBit()
 	{
@@ -90,13 +91,18 @@ public class NanoBit : Character {
 		movement.rotation = Quaternion.Euler(0f,0f,heading * Mathf.Rad2Deg);
 
 	}
-
 	public void nanoBitMoveBack(Transform movement)
 	{
-
+		isAttacking = false;
 		movement.position = Vector3.MoveTowards(movement.position, 
 		                                        GameObject.FindGameObjectWithTag("Player").transform.position,
 		                                        Time.deltaTime * 5);
+
+	}
+	public void moveToAttack()
+	{
+		isAttacking = true;
+		Debug.Log("Attack!");
 
 	}
 

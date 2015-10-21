@@ -12,7 +12,7 @@ public class Character {
 	public Character()
 	{
 		health = 100.0f;
-		speed = 5.0f;
+		speed = 2.0f;
 		location = Vector2.zero;
 	}
 	public Character(float aHealthVal, float aSpeedVal, Vector2 aLocation)

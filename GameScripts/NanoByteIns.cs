@@ -11,6 +11,7 @@ public class NanoByteIns : MonoBehaviour {
 	public List<GameObject> holderForBits = new List<GameObject>();
 	public Animator nanoAnim;
 	public Slider healthBar;
+	public Slider usageBar;
 
 	public int nanoBitNumber;
 
@@ -22,7 +23,6 @@ public class NanoByteIns : MonoBehaviour {
 	void Awake () {
 		nanoByte = new NanoByte();
 		nanoByte.setLocation(nanoByteGameObject.transform.position);
-		
 	}
 	
 	// Update is called once per frame
