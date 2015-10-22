@@ -35,8 +35,15 @@ public class LevelUpMenu : MonoBehaviour {
 		{
 			tierArray[int.Parse(button.GetComponentInParent<Transform>().parent.name.Split('-')[0]),
 			          int.Parse((button.name.Split('-')[0])) + 1].interactable = true;
+			tierArray[int.Parse(button.GetComponentInParent<Transform>().parent.name.Split('-')[0]),
+			          int.Parse((button.name.Split('-')[0]))].interactable = false;
 		}
-
+		else
+		{
+			tierArray[int.Parse(button.GetComponentInParent<Transform>().parent.name.Split('-')[0]),
+			          int.Parse((button.name.Split('-')[0]))].interactable = false;
+		}
+		
 		switch(button.name.Split('-')[1])
 		{
 		case "HealthLevel":

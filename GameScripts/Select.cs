@@ -9,7 +9,7 @@ public class Select : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointer
 	public GameObject selectorBoxCol;
 	Vector2 sceneMousePositionBegin;
 	Vector2 sceneMousePositionEnd;
-	PointerEventData eventData;
+	PointerEventData eventData = null;
 	public NanoByteIns nanoByteInspector;
 	public bool canDrag;
 	public bool isDragging;
