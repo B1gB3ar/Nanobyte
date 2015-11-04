@@ -10,19 +10,35 @@ public class NanoBitIns : MonoBehaviour {
 	{
 		counterMovement += Time.deltaTime;
 
+		if(nanobit.isAttacking && nanobit.isSelected)
+		{
+			Debug.Log("Attacking from selection");
+			nanobit.moveToAttack(transform, nanobit.getEnemyPos());
+		}
+
 		if(nanobit.isSelected)
-				nanobit.stopNanoBitMovement();
+		{
+			Debug.Log("Is Selected");
+			nanobit.stopNanoBitMovement();
+		}
 		else if(nanobit.containedWithByte)
 		{
+			Debug.Log("Contained within Byte");
 			if(counterMovement >= 0.1f)
 			{
 				nanobit.nanoBitMovement(transform);
 				counterMovement = 0;
 			}
 		}
-		else
+		else if(nanobit.isAttacking)
+		{
+			Debug.Log("Attacking");
+			nanobit.moveToAttack(transform, nanobit.getEnemyPos());
+		}
+		else if(!nanobit.isSelected && !nanobit.containedWithByte)
+		{
+			Debug.Log("Not selected or contained, moving back");
 			nanobit.nanoBitMoveBack(transform);
-
+		}
 	}
-
 }
