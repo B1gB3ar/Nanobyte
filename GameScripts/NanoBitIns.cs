@@ -4,16 +4,51 @@ using System.Collections;
 public class NanoBitIns : MonoBehaviour {
 
 	public NanoBit nanobit;
+	public NanoByteIns nanoByte;
 	public float counterMovement = 0;
+	bool goRight;
+	bool moveOver;
+
+	void Awake()
+	{
+		nanoByte = GameObject.FindGameObjectWithTag("Player").GetComponent<NanoByteIns>();
+	}
 
 	void Update()
 	{
 		counterMovement += Time.deltaTime;
 
-		if(nanobit.isAttacking && nanobit.isSelected)
+		if(nanobit.isMovingToAttack && nanobit.isSelected)
 		{
 			Debug.Log("Attacking from selection");
 			nanobit.moveToAttack(transform, nanobit.getEnemyPos());
+			if(moveOver)
+			{
+				if(goRight)
+				{
+					//TODO FIX THIS! NOT WORKING CORRECTLY...
+					Debug.Log("Right: " + nanobit.getLocation());
+					nanobit.setLocation(Vector2.Lerp(nanobit.getLocation(), 
+					                                 new Vector2(nanobit.getLocation().x + 5000, nanobit.getLocation().y),
+					                                 Time.deltaTime * 3));
+				}
+				else
+				{
+					//TODO FIX THIS! NOT WORKING CORRECTLY...
+					Debug.Log("Left: " + nanobit.getLocation());
+					nanobit.setLocation(Vector2.Lerp(nanobit.getLocation(), 
+					                                 new Vector2(nanobit.getLocation().x - 5000, nanobit.getLocation().y),
+					                                 Time.deltaTime * 3));
+				}
+			}
+			Vector3 dir = nanobit.getEnemyPos().position - transform.position;
+			float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 270;
+			transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+		}
+		else if(nanobit.isAttacking && nanobit.isSelected)
+		{
+			//TODO
+			Debug.Log("Attacking");
 		}
 
 		if(nanobit.isSelected)
@@ -26,19 +61,53 @@ public class NanoBitIns : MonoBehaviour {
 			Debug.Log("Contained within Byte");
 			if(counterMovement >= 0.1f)
 			{
-				nanobit.nanoBitMovement(transform);
+				nanobit.nanoBitMovement(transform, 0.2f, 5);
 				counterMovement = 0;
 			}
 		}
+		else if(nanobit.isMovingToAttack)
+		{
+			Debug.Log("Moving to Attack");
+			nanobit.moveToAttack(transform, nanobit.getEnemyPos());
+			Vector3 dir = nanobit.getEnemyPos().position - transform.position;
+			float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 270;
+			transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+		}
 		else if(nanobit.isAttacking)
 		{
+			//TODO
 			Debug.Log("Attacking");
-			nanobit.moveToAttack(transform, nanobit.getEnemyPos());
 		}
 		else if(!nanobit.isSelected && !nanobit.containedWithByte)
 		{
 			Debug.Log("Not selected or contained, moving back");
-			nanobit.nanoBitMoveBack(transform);
+			nanobit.moveBack(transform, nanoByte.transform);
 		}
+	}
+
+	void OnTriggerStay2D(Collider2D coll)
+	{
+		if(coll.tag == "NanoBit" && nanobit.isMovingToAttack && coll.name != name)
+		{	
+			Debug.Log("Found nanobit in front...");
+			moveOver = true;
+			//nanobit.isMovingToAttack = true;
+		}
+	}
+	
+	void OnTriggerExit2D(Collider2D coll)
+	{
+		if(coll.tag == "NanoBit" && coll.GetComponent<NanoBitIns>().nanobit.isAttacking)
+		{
+			goRight = !goRight;
+			nanobit.isMovingToAttack = true;
+			moveOver = false;
+		}
+		else if(coll.tag == "Enemy")
+		{
+			nanobit.isAttacking = false;
+		}
+		nanobit.firstPass = true;
+		nanobit.randNumb = Random.Range(1, 9);
 	}
 }

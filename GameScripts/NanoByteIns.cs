@@ -49,7 +49,9 @@ public class NanoByteIns : MonoBehaviour {
 			counter += Time.deltaTime;
 			if(counter >= 10.0f)
 			{
-				spawnNanoBit();
+				GameObject nanoBitInst = Instantiate(Resources.Load("NanoBit") as GameObject);
+				nanoBits.Add(nanoBitInst.GetComponent<NanoBitIns>().nanobit);
+				nanoByte.spawn(nanoBitInst, nanoByte, holderForBits);
 				counter = 0.0f;
 
 			}
@@ -57,18 +59,6 @@ public class NanoByteIns : MonoBehaviour {
 
 	}
 
-	public void spawnNanoBit()
-	{
-		GameObject nanoBitInst = Instantiate(Resources.Load("NanoBit") as GameObject);
-		nanoBitInst.transform.position = nanoByte.getLocation();
-		nanoBitInst.name = nanoBitInst.name + nanoBitNumber;
-		holderForBits.Add(nanoBitInst);
-		nanoBits.Add(nanoBitInst.GetComponent<NanoBitIns>().nanobit);
-		Debug.Log("Created " + nanoBitInst.name);
-		++nanoBitNumber;
-		//damagePlayer(15);
-	}
-	
 	public void damagePlayer(int damage)
 	{
 		nanoByte.inflictDamage(damage);
