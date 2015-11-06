@@ -13,39 +13,56 @@ public class Select : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointer
 	public NanoByteIns nanoByteInspector;
 	public bool canDrag;
 	public bool isDragging;
+	public bool clickedEnemy;
 
 	void Update()
 	{
-
-		if(Input.GetKeyDown(KeyCode.Escape) && isDragging)
+		if(Input.GetKeyDown(KeyCode.Escape)) //&& isDragging)
 		{
 			OnPointerUp(eventData);
-			Debug.Log(nanoByteInspector.nanoBits.Count);
+			//Debug.Log(nanoByteInspector.nanoBits.Count);
 			canDrag = false;
 			for(int i = 0; i < nanoByteInspector.nanoBits.Count; ++i)
 			{
-				Debug.Log("Selected?: " + nanoByteInspector.nanoBits[i].isSelected);
+				//Debug.Log("Selected?: " + nanoByteInspector.nanoBits[i].isSelected);
 				if(nanoByteInspector.nanoBits[i].isSelected)
 				{
 					nanoByteInspector.nanoBits[i].setSelection(false);
-					Debug.Log("Deselected: " + nanoByteInspector.holderForBits[i].name);
+					//Debug.Log("Deselected: " + nanoByteInspector.holderForBits[i].name);
 				}
 			}
 		}
 
 	}
 
+	public void ClickedEnemy(Transform enemyPos)
+	{
+		clickedEnemy = true;
+		for(int i = 0; i < nanoByteInspector.holderForBits.Count; ++i)
+		{
+			if(nanoByteInspector.holderForBits[i].GetComponent<NanoBitIns>().nanobit.getSelection())
+			{
+				nanoByteInspector.holderForBits[i].GetComponent<NanoBitIns>().nanobit.setEnemyPos(enemyPos);
+				nanoByteInspector.holderForBits[i].GetComponent<NanoBitIns>().nanobit.isAttacking = true;
+			}
+		}
+	}
+
 	public void OnPointerDown (PointerEventData eventData)
 	{
+
 		sceneMousePositionBegin = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
 		selector.anchoredPosition = sceneMousePositionBegin;
 		for(int i = 0; i < nanoByteInspector.nanoBits.Count; ++i)
 		{
-			Debug.Log("Selected?: " + nanoByteInspector.nanoBits[i].isSelected);
+			//Debug.Log("Selected?: " + nanoByteInspector.nanoBits[i].isSelected);
 			if(nanoByteInspector.nanoBits[i].isSelected)
 			{
-				nanoByteInspector.nanoBits[i].setSelection(false);
-				Debug.Log("Deselected: " + nanoByteInspector.holderForBits[i].name);
+				if(!clickedEnemy)
+				{
+					nanoByteInspector.nanoBits[i].setSelection(false);
+				}
+				//Debug.Log("Deselected: " + nanoByteInspector.holderForBits[i].name);
 			}
 		}
 	}
@@ -82,6 +99,7 @@ public class Select : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointer
 	{
 		canDrag = true;
 		isDragging = false;
+		clickedEnemy = false;
 		selector.anchoredPosition = Vector2.zero;
 		selector.sizeDelta = Vector2.zero;
 		sceneMousePositionBegin = Vector2.zero;

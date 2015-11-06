@@ -1,21 +1,41 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.EventSystems;
 
 public class AttackRadius : MonoBehaviour {
 
 	public NanoByteIns nanoByte;
 
-	// TODO Not working properly just yet..
-	void OnTriggerEnter2D(Collider2D coll)
+	void Update()
+	{
+		if(Input.GetKeyDown(KeyCode.C))
+		{
+			CallBack();
+		}
+	}
+
+	public void CallBack()
+	{
+		for(int i = 0; i < nanoByte.nanoBits.Count; ++i)
+		{
+			//Debug.Log("Selected?: " + nanoByteInspector.nanoBits[i].isSelected);
+			nanoByte.nanoBits[i].setContainment(false);
+			nanoByte.nanoBits[i].isAttacking = false;
+			nanoByte.nanoBits[i].setSelection(false);
+		}
+	}
+
+	void OnTriggerStay2D(Collider2D coll)
 	{
 		if(coll.tag == "Enemy")
-		{
+		{	
 			foreach(NanoBit nanoBit in nanoByte.nanoBits)
 			{
 				if(!nanoBit.getSelection())
 				{
-					nanoBit.moveToAttack();
+					nanoBit.isAttacking = true;
 					nanoBit.setContainment(false);
+					nanoBit.setEnemyPos(coll.transform);
 				}
 			}
 		}
@@ -28,7 +48,10 @@ public class AttackRadius : MonoBehaviour {
 			foreach(NanoBit nanoBit in nanoByte.nanoBits)
 			{
 				if(!nanoBit.getSelection())
-					nanoBit.setContainment(true);
+				{
+					nanoBit.isAttacking = false;
+					nanoBit.setEnemyPos(null);
+				}
 			}
 		}
 	}
