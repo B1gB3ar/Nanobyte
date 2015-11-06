@@ -43,7 +43,7 @@ public class Select : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointer
 			if(nanoByteInspector.holderForBits[i].GetComponent<NanoBitIns>().nanobit.getSelection())
 			{
 				nanoByteInspector.holderForBits[i].GetComponent<NanoBitIns>().nanobit.setEnemyPos(enemyPos);
-				nanoByteInspector.holderForBits[i].GetComponent<NanoBitIns>().nanobit.isAttacking = true;
+				nanoByteInspector.holderForBits[i].GetComponent<NanoBitIns>().nanobit.isMovingToAttack = true;
 			}
 		}
 	}
@@ -69,7 +69,6 @@ public class Select : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointer
 
 	public void OnDrag (PointerEventData eventData)
 	{
-
 		if(canDrag)
 		{
 			isDragging = true;
@@ -92,14 +91,13 @@ public class Select : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointer
 			selector.sizeDelta = difference;
 			selectorBoxCol.GetComponent<BoxCollider2D>().size = difference;
 		}
-
 	}
 	
 	public void OnPointerUp (PointerEventData eventData)
 	{
 		canDrag = true;
 		isDragging = false;
-		clickedEnemy = false;
+		//clickedEnemy = false;
 		selector.anchoredPosition = Vector2.zero;
 		selector.sizeDelta = Vector2.zero;
 		sceneMousePositionBegin = Vector2.zero;

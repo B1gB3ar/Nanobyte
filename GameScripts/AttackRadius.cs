@@ -18,8 +18,8 @@ public class AttackRadius : MonoBehaviour {
 	{
 		for(int i = 0; i < nanoByte.nanoBits.Count; ++i)
 		{
-			//Debug.Log("Selected?: " + nanoByteInspector.nanoBits[i].isSelected);
 			nanoByte.nanoBits[i].setContainment(false);
+			nanoByte.nanoBits[i].isMovingToAttack = false;
 			nanoByte.nanoBits[i].isAttacking = false;
 			nanoByte.nanoBits[i].setSelection(false);
 		}
@@ -33,7 +33,7 @@ public class AttackRadius : MonoBehaviour {
 			{
 				if(!nanoBit.getSelection())
 				{
-					nanoBit.isAttacking = true;
+					nanoBit.isMovingToAttack = true;
 					nanoBit.setContainment(false);
 					nanoBit.setEnemyPos(coll.transform);
 				}
@@ -43,14 +43,18 @@ public class AttackRadius : MonoBehaviour {
 
 	void OnTriggerExit2D(Collider2D coll)
 	{
-		if(coll.tag == "Enemy")
+		if(coll.tag.Contains("NanoBit"))
 		{
 			foreach(NanoBit nanoBit in nanoByte.nanoBits)
 			{
 				if(!nanoBit.getSelection())
 				{
+					Debug.Log("Leaving Enemy");
+					nanoBit.isMovingToAttack = false;
 					nanoBit.isAttacking = false;
 					nanoBit.setEnemyPos(null);
+					nanoBit.firstPass = true;
+					nanoBit.randNumb = Random.Range(1, 9);
 				}
 			}
 		}
