@@ -19,8 +19,7 @@ public class NanoByteColl : MonoBehaviour {
 		if(coll.gameObject.name.Contains(NanoBitString) && !coll.gameObject.GetComponent<NanoBitIns>().nanobit.isMovingToAttack)
 		{
 			coll.gameObject.GetComponent<NanoBitIns>().nanobit.setContainment(false);
-			coll.gameObject.GetComponent<NanoBitIns>().nanobit.firstPass = true;
-			coll.gameObject.GetComponent<NanoBitIns>().nanobit.randNumb = Random.Range(1, 9);
+			coll.gameObject.GetComponent<NanoBitIns>().nanobit.resetFirstPass();
 		}
 	}
 

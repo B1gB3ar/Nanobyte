@@ -12,7 +12,6 @@ public class SelectCollider : MonoBehaviour {
 		{
 			//coll.gameObject.GetComponent<NanoBitIns>().nanobit.stopNanoBitMovement();
 			coll.gameObject.GetComponent<NanoBitIns>().nanobit.setSelection(true);
-			Debug.Log("Selected " + coll.gameObject.name);
 		}
 	}
 
@@ -23,7 +22,6 @@ public class SelectCollider : MonoBehaviour {
 		{
 			//coll.gameObject.GetComponent<NanoBitIns>().nanobit.nanoBitMovement(coll.gameObject.transform, 1);
 			coll.gameObject.GetComponent<NanoBitIns>().nanobit.setSelection(false);
-			Debug.Log("Deselected " + coll.gameObject.name);
 		}
 
 	}

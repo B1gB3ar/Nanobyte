@@ -17,19 +17,14 @@ public class Select : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointer
 
 	void Update()
 	{
-		if(Input.GetKeyDown(KeyCode.Escape)) //&& isDragging)
+		if(Input.GetKeyDown(KeyCode.Escape))
 		{
 			OnPointerUp(eventData);
-			//Debug.Log(nanoByteInspector.nanoBits.Count);
 			canDrag = false;
 			for(int i = 0; i < nanoByteInspector.nanoBits.Count; ++i)
 			{
-				//Debug.Log("Selected?: " + nanoByteInspector.nanoBits[i].isSelected);
 				if(nanoByteInspector.nanoBits[i].isSelected)
-				{
 					nanoByteInspector.nanoBits[i].setSelection(false);
-					//Debug.Log("Deselected: " + nanoByteInspector.holderForBits[i].name);
-				}
 			}
 		}
 
@@ -50,19 +45,16 @@ public class Select : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointer
 
 	public void OnPointerDown (PointerEventData eventData)
 	{
-
 		sceneMousePositionBegin = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
 		selector.anchoredPosition = sceneMousePositionBegin;
 		for(int i = 0; i < nanoByteInspector.nanoBits.Count; ++i)
 		{
-			//Debug.Log("Selected?: " + nanoByteInspector.nanoBits[i].isSelected);
 			if(nanoByteInspector.nanoBits[i].isSelected)
 			{
 				if(!clickedEnemy)
 				{
 					nanoByteInspector.nanoBits[i].setSelection(false);
 				}
-				//Debug.Log("Deselected: " + nanoByteInspector.holderForBits[i].name);
 			}
 		}
 	}
@@ -97,7 +89,6 @@ public class Select : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointer
 	{
 		canDrag = true;
 		isDragging = false;
-		//clickedEnemy = false;
 		selector.anchoredPosition = Vector2.zero;
 		selector.sizeDelta = Vector2.zero;
 		sceneMousePositionBegin = Vector2.zero;

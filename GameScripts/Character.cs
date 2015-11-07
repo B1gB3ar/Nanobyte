@@ -8,6 +8,8 @@ public class Character {
 	public float speed;
 	public Vector2 location;
 	public int numberOfSpawned;
+	public bool isMovingToAttack;
+	public bool isAttacking;
 
 	public AttackValues attackValues;
 	public bool firstPass = true;
@@ -44,6 +46,14 @@ public class Character {
 	{
 		enemyPosition = enemyPos;
 	}
+	public void setMoveToAttack(bool moveTo)
+	{
+		isMovingToAttack = moveTo;
+	}
+	public void setAttacking(bool attack)
+	{
+		isAttacking = attack;
+	}
  
 	public float getHealth()
 	{
@@ -61,6 +71,26 @@ public class Character {
 	{
 		return enemyPosition;
 	}
+	public bool getMoveToAttack()
+	{
+		return isMovingToAttack;
+	}
+	public bool getAttacking()
+	{
+		return isAttacking;
+	}
+
+	public void resetFirstPass()
+	{
+		randNumb = Random.Range(1, 9);
+		firstPass = true;
+	}
+	public void resetAttackSequence()
+	{
+		this.setMoveToAttack(false);
+		this.setAttacking(false);
+		this.setEnemyPos(null);
+	}
 
 	public void spawn(GameObject characterGameObject, Character spawner,
 	                         List<GameObject> listOfSpawned)
@@ -73,7 +103,7 @@ public class Character {
 
 	public void moveBack(Transform currPos, Transform initialPos)
 	{
-//		isMovingToAttack = false;
+		isMovingToAttack = false;
 		currPos.position = Vector3.MoveTowards(currPos.position, initialPos.position, Time.deltaTime * 6f);
 	}
 
@@ -82,12 +112,12 @@ public class Character {
 		currPos.position = Vector3.MoveTowards(currPos.position, enemyPos.position, Time.deltaTime * 4f);
 	}
 	
-	public void startToAttack(Transform nanoBitPos, Transform enemyPos)
+	public void startToAttack(Transform currPos, Transform enemyPos)
 	{
 		//TODO Add animation or something? Change Parameters...?
 	}
 
-	public void nanoBitMovement(Transform nanoBitPos, float moveByHowMuch, int howFast)
+	public void charMovement(Transform currPos, float moveByHowMuch, int howFast)
 	{
 		float heading = 0f;
 		
@@ -96,86 +126,84 @@ public class Character {
 		case 1: // Right
 			if(firstPass)
 			{
-				Debug.Log("Passing...");
-				finalPos = new Vector3(nanoBitPos.position.x + moveByHowMuch, nanoBitPos.position.y, nanoBitPos.position.z);
+				finalPos = new Vector3(currPos.position.x + moveByHowMuch, currPos.position.y, currPos.position.z);
 				firstPass = false;
 			}
-			nanoBitPos.position = Vector3.Lerp(nanoBitPos.position, finalPos, Time.deltaTime * howFast);
+			currPos.position = Vector3.Lerp(currPos.position, finalPos, Time.deltaTime * howFast);
 			heading = Mathf.Atan2(-1, 0);
 			break;
 		case 2: // Up
 			if(firstPass)
 			{
-				finalPos = new Vector3(nanoBitPos.position.x, nanoBitPos.position.y + moveByHowMuch, nanoBitPos.position.z);
+				finalPos = new Vector3(currPos.position.x, currPos.position.y + moveByHowMuch, currPos.position.z);
 				firstPass = false;
 			}
-			nanoBitPos.position = Vector3.Lerp(nanoBitPos.position, finalPos, Time.deltaTime * howFast);
+			currPos.position = Vector3.Lerp(currPos.position, finalPos, Time.deltaTime * howFast);
 			heading = Mathf.Atan2(0, 1);
 			break;
 		case 3: // Left
 			if(firstPass)
 			{
-				finalPos = new Vector3(nanoBitPos.position.x - moveByHowMuch, nanoBitPos.position.y, nanoBitPos.position.z);
+				finalPos = new Vector3(currPos.position.x - moveByHowMuch, currPos.position.y, currPos.position.z);
 				firstPass = false;
 			}
-			nanoBitPos.position = Vector3.Lerp(nanoBitPos.position, finalPos, Time.deltaTime * howFast);
+			currPos.position = Vector3.Lerp(currPos.position, finalPos, Time.deltaTime * howFast);
 			heading = Mathf.Atan2(1, 0);
 			break;
 		case 4: // Down
 			if(firstPass)
 			{
-				finalPos = new Vector3(nanoBitPos.position.x, nanoBitPos.position.y - moveByHowMuch, nanoBitPos.position.z);
+				finalPos = new Vector3(currPos.position.x, currPos.position.y - moveByHowMuch, currPos.position.z);
 				firstPass = false;
 			}
-			nanoBitPos.position = Vector3.Lerp(nanoBitPos.position, finalPos, Time.deltaTime * howFast);
+			currPos.position = Vector3.Lerp(currPos.position, finalPos, Time.deltaTime * howFast);
 			heading = Mathf.Atan2(0, -1);
 			break;
 		case 5: // Up & Right
 			if(firstPass)
 			{
-				finalPos = new Vector3(nanoBitPos.position.x + moveByHowMuch, nanoBitPos.position.y + moveByHowMuch, nanoBitPos.position.z);
+				finalPos = new Vector3(currPos.position.x + moveByHowMuch, currPos.position.y + moveByHowMuch, currPos.position.z);
 				firstPass = false;
 			}
-			nanoBitPos.position = Vector3.Lerp(nanoBitPos.position, finalPos, Time.deltaTime * howFast);
+			currPos.position = Vector3.Lerp(currPos.position, finalPos, Time.deltaTime * howFast);
 			heading = Mathf.Atan2(-1, 1);
 			break;
 		case 6: // Up & Left
 			if(firstPass)
 			{
-				finalPos = new Vector3(nanoBitPos.position.x + moveByHowMuch, nanoBitPos.position.y - moveByHowMuch, nanoBitPos.position.z);
+				finalPos = new Vector3(currPos.position.x + moveByHowMuch, currPos.position.y - moveByHowMuch, currPos.position.z);
 				firstPass = false;
 			}
-			nanoBitPos.position = Vector3.Lerp(nanoBitPos.position, finalPos, Time.deltaTime * howFast);
+			currPos.position = Vector3.Lerp(currPos.position, finalPos, Time.deltaTime * howFast);
 			heading = Mathf.Atan2(1, 1);
 			break;
 		case 7: // Down & Right
 			if(firstPass)
 			{
-				finalPos = new Vector3(nanoBitPos.position.x - moveByHowMuch, nanoBitPos.position.y + moveByHowMuch, nanoBitPos.position.z);
+				finalPos = new Vector3(currPos.position.x - moveByHowMuch, currPos.position.y + moveByHowMuch, currPos.position.z);
 				firstPass = false;
 			}
-			nanoBitPos.position = Vector3.Lerp(nanoBitPos.position, finalPos, Time.deltaTime * howFast);
+			currPos.position = Vector3.Lerp(currPos.position, finalPos, Time.deltaTime * howFast);
 			heading = Mathf.Atan2(-1, -1);
 			break;
 		case 8: // Down & Left
 			if(firstPass)
 			{
-				Debug.Log("FirstPass");
-				finalPos = new Vector3(nanoBitPos.position.x - moveByHowMuch, nanoBitPos.position.y - moveByHowMuch, nanoBitPos.position.z);
+				finalPos = new Vector3(currPos.position.x - moveByHowMuch, currPos.position.y - moveByHowMuch, currPos.position.z);
 				firstPass = false;
 			}	
-			nanoBitPos.position = Vector3.Lerp(nanoBitPos.position, finalPos, Time.deltaTime * howFast);
+			currPos.position = Vector3.Lerp(currPos.position, finalPos, Time.deltaTime * howFast);
 			heading = Mathf.Atan2(1, -1);
 			break;
 		default:
 			break;
 		}
-		if(nanoBitPos.position.x >= finalPos.x - .1f)
+
+		if(currPos.position.x >= finalPos.x - .1f)
 		{
 			Debug.Log("Reached");
-			randNumb = Random.Range(1, 9);
-			firstPass = true;
+			resetFirstPass();
 		}
-		nanoBitPos.rotation = Quaternion.Euler(0f,0f,heading * Mathf.Rad2Deg);
+		currPos.rotation = Quaternion.Euler(0f, 0f, heading * Mathf.Rad2Deg);
 	}
 }

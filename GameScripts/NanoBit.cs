@@ -6,8 +6,6 @@ public class NanoBit : Character {
 
 	public bool isSelected;
 	public bool containedWithByte;
-	public bool isMovingToAttack;
-	public bool isAttacking;
 
 	public NanoBit()
 	{

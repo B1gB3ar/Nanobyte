@@ -12,6 +12,7 @@ public class NanoByteIns : MonoBehaviour {
 	public Animator nanoAnim;
 	public Slider healthBar;
 	public Slider usageBar;
+	public Camera mainCam;
 
 	public int nanoBitNumber;
 
@@ -30,6 +31,9 @@ public class NanoByteIns : MonoBehaviour {
 
 		move = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
 		transform.position += move * nanoByte.getSpeed() * Time.deltaTime;
+		mainCam.transform.position = Vector3.Lerp (mainCam.transform.position, 
+		                                           new Vector3(transform.position.x, transform.position.y, 0), 
+		                                           Time.deltaTime * 2);
 		if(Input.GetAxis("Horizontal") != 0f || Input.GetAxis("Vertical") != 0f)
 		{
 			float heading = Mathf.Atan2(-Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));

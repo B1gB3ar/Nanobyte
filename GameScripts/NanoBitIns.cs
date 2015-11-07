@@ -6,8 +6,8 @@ public class NanoBitIns : MonoBehaviour {
 	public NanoBit nanobit;
 	public NanoByteIns nanoByte;
 	public float counterMovement = 0;
-	bool goRight;
-	bool moveOver;
+	public bool goRight;
+	public bool moveOver;
 
 	void Awake()
 	{
@@ -17,12 +17,12 @@ public class NanoBitIns : MonoBehaviour {
 	void Update()
 	{
 		counterMovement += Time.deltaTime;
-
+		//TODO FIX THIS AWFUL LOOKING CODE
 		if(nanobit.isMovingToAttack && nanobit.isSelected)
 		{
 			Debug.Log("Attacking from selection");
 			nanobit.moveToAttack(transform, nanobit.getEnemyPos());
-			if(moveOver)
+			/*if(moveOver)
 			{
 				if(goRight)
 				{
@@ -40,7 +40,7 @@ public class NanoBitIns : MonoBehaviour {
 					                                 new Vector2(nanobit.getLocation().x - 5000, nanobit.getLocation().y),
 					                                 Time.deltaTime * 3));
 				}
-			}
+			}*/
 			Vector3 dir = nanobit.getEnemyPos().position - transform.position;
 			float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 270;
 			transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
@@ -61,7 +61,7 @@ public class NanoBitIns : MonoBehaviour {
 			Debug.Log("Contained within Byte");
 			if(counterMovement >= 0.1f)
 			{
-				nanobit.nanoBitMovement(transform, 0.2f, 5);
+				nanobit.charMovement(transform, 0.2f, 5);
 				counterMovement = 0;
 			}
 		}
@@ -83,31 +83,5 @@ public class NanoBitIns : MonoBehaviour {
 			Debug.Log("Not selected or contained, moving back");
 			nanobit.moveBack(transform, nanoByte.transform);
 		}
-	}
-
-	void OnTriggerStay2D(Collider2D coll)
-	{
-		if(coll.tag == "NanoBit" && nanobit.isMovingToAttack && coll.name != name)
-		{	
-			Debug.Log("Found nanobit in front...");
-			moveOver = true;
-			//nanobit.isMovingToAttack = true;
-		}
-	}
-	
-	void OnTriggerExit2D(Collider2D coll)
-	{
-		if(coll.tag == "NanoBit" && coll.GetComponent<NanoBitIns>().nanobit.isAttacking)
-		{
-			goRight = !goRight;
-			nanobit.isMovingToAttack = true;
-			moveOver = false;
-		}
-		else if(coll.tag == "Enemy")
-		{
-			nanobit.isAttacking = false;
-		}
-		nanobit.firstPass = true;
-		nanobit.randNumb = Random.Range(1, 9);
 	}
 }
