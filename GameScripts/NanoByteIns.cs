@@ -20,6 +20,7 @@ public class NanoByteIns : MonoBehaviour {
 	Vector3 lastMove = Vector3.zero;
 	Vector3 move = Vector3.zero;
 
+	//TODO Add Animations
 	// Use this for initialization
 	void Awake () {
 		nanoByte = new NanoByte();
