@@ -6,128 +6,128 @@ using UnityEngine.UI;
 public class AttackValues
 {
 	public float dmg_StandardAttack;
-	public float dmg_Special1;
-	public float dmg_Special2;
-	public float dmg_Special3;
-	public float dmg_Special4;
+	public float dmg_lasers;
 	
-	public float usage_Spec1 = 30;
-	public float usage_Spec2 = 30;
-	public float usage_Spec3 = 30;
-	public float usage_Spec4 = 30;
+	public float usage_lasers = 1;
+	public float usage_flashFreeze = 1;
+	public float usage_stealth = 1;
+
+	public float laserDecrement = 100;
+	public float flashDecrement = 1;
+	public float stealthDecrement = 100;
 
 	public AttackValues()
 	{
 		dmg_StandardAttack = 5;
-		dmg_Special1 = 0;
-		dmg_Special2 = 0;
-		dmg_Special3 = 0;
-		dmg_Special4 = 0;
+		dmg_lasers = 0;
 	}
-	public AttackValues(float stdAtt, float spec1, float spec2, float spec3, float spec4)
+	public AttackValues(float stdAtt, float spec1)
 	{
 		setStandardAttack(stdAtt);
-		setSpecial1Attack(spec1);
-		setSpecial2Attack(spec2);
-		setSpecial3Attack(spec3);
-		setSpecial4Attack(spec4);
+		this.setAttack_Lasers(spec1);
 	}
+
 	public void setStandardAttack(float stdAtt)
 	{
 		dmg_StandardAttack = stdAtt;	
 	}
-	public void setSpecial1Attack(float spec1)
+	public void setAttack_Lasers(float spec1)
 	{
-		dmg_Special1 = spec1;	
+		dmg_lasers = spec1;	
 	}
-	public void setSpecial2Attack(float spec2)
+
+	public void setUsage_Lasers(float uSpec1)
 	{
-		dmg_Special2 = spec2;	
+		usage_lasers = uSpec1;
 	}
-	public void setSpecial3Attack(float spec3)
+	public void setUsage_FlashFreeze(float uSpec2)
 	{
-		dmg_Special3 = spec3;	
+		usage_flashFreeze = uSpec2;
 	}
-	public void setSpecial4Attack(float spec4)
+	public void setUsage_Stealth(float uSpec3)
 	{
-		dmg_Special4 = spec4;	
+		usage_stealth = uSpec3;
 	}
-	public void setUsageSpec1(float uSpec1)
+
+	public void setDecrement_Lasers(float decrement)
 	{
-		usage_Spec1 = uSpec1;
+		laserDecrement = decrement;
 	}
-	public void setUsageSpec2(float uSpec2)
+	public void setDecrement_Flash(float decrement)
 	{
-		usage_Spec2 = uSpec2;
+		flashDecrement = decrement;
 	}
-	public void setUsageSpec3(float uSpec3)
+	public void setDecrement_Stealth(float decrement)
 	{
-		usage_Spec3 = uSpec3;
-	}
-	public void setUsageSpec4(float uSpec4)
-	{
-		usage_Spec4 = uSpec4;
+		stealthDecrement = decrement;
 	}
 
 	public float getStandardAttack()
 	{		
 		return dmg_StandardAttack;	
 	}
-	public float getSpecial1Attack()
+	public float getAttack_Lasers()
 	{
-		return dmg_Special1;	
+		return dmg_lasers;	
 	}
-	public float getSpecial2Attack()
+
+	public float getUsage_Lasers()
 	{
-		return dmg_Special2;	
+		return usage_lasers;
 	}
-	public float getSpecial3Attack()
+	public float getUsage_FlashFreeze()
 	{
-		return dmg_Special3;	
+		return usage_flashFreeze;
 	}
-	public float getSpecial4Attack()
+	public float getUsage_Stealth()
 	{
-		return dmg_Special4;	
+		return usage_stealth;
 	}
-	public float getUsageSpec1()
+
+	public float getDecrement_Lasers()
 	{
-		return usage_Spec1;
+		return laserDecrement;
 	}
-	public float getUsageSpec2()
+	public float getDecrement_Flash()
 	{
-		return usage_Spec2;
+		return flashDecrement;
 	}
-	public float getUsageSpec3()
+	public float getDecrement_Stealth()
 	{
-		return usage_Spec3;
-	}
-	public float getUsageSpec4()
-	{
-		return usage_Spec4;
+		return stealthDecrement;
 	}
 
 	public void levelUpAttack(float anAttack)
 	{
 		this.setStandardAttack(this.getStandardAttack() + anAttack);
 	}
-	public void levelUpSpec1Att(float anAttack, float usageAmount)
+	public void levelUp_Lasers(float anAttack, float usageAmount)
 	{
-		this.setSpecial1Attack(this.getSpecial1Attack() + anAttack);
-		this.setUsageSpec1(this.getUsageSpec1() - usageAmount);
+		this.setAttack_Lasers(this.getAttack_Lasers() + anAttack);
+		//this.setUsage_Lasers(this.getUsage_Lasers() - usageAmount);
+		this.setDecrement_Lasers(this.getDecrement_Lasers() * (1/10));
 	}
-	public void levelUpSpec2Att(float anAttack, float usageAmount)
+	public void levelUp_FlashFreeze(float anAttack, float usageAmount)
 	{
-		this.setSpecial2Attack(this.getSpecial2Attack() + anAttack);
-		this.setUsageSpec2(this.getUsageSpec2() - usageAmount);
+		/*
+		 * Whole screen flash
+		 * Stop enemies longer
+		 */ 
+		this.setDecrement_Flash(0.5f);
+		Debug.Log(this.getDecrement_Flash());
 	}
-	public void levelUpSpec3Att(float anAttack, float usageAmount)
+	public void levelUp_SlowFreeze(float anAttack, float usageAmount)
 	{
-		this.setSpecial3Attack(this.getSpecial3Attack() + anAttack);
-		this.setUsageSpec3(this.getUsageSpec3() - usageAmount);
+		/*
+		 * Update Radius
+		 * Create a slower enemy
+		 */ 
 	}
-	public void levelUpSpec4Att(float anAttack, float usageAmount)
+	public void levelUp_Stealth(float anAttack, float usageAmount)
 	{
-		this.setSpecial4Attack(this.getSpecial4Attack() + anAttack);
-		this.setUsageSpec4(this.getUsageSpec4() - usageAmount);
+		/*
+		 * Invisible to enemies
+		 */ 
+		this.setDecrement_Stealth(this.getDecrement_Stealth() * (1/10));
 	}
 }

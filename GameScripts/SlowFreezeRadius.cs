@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.EventSystems;
 
-public class AttackRadius : MonoBehaviour {
+public class SlowFreezeRadius : MonoBehaviour {
 
 	public NanoByteIns nanoByte;
 
@@ -24,6 +24,7 @@ public class AttackRadius : MonoBehaviour {
 		}
 	}
 
+	//TODO Change these so that they slow the enemy down, not attack
 	void OnTriggerStay2D(Collider2D coll)
 	{
 		if(coll.tag == "Enemy")

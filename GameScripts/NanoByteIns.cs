@@ -68,5 +68,4 @@ public class NanoByteIns : MonoBehaviour {
 		nanoByte.inflictDamage(damage);
 		nanoByte.updateHealth(healthBar);
 	}
-	
 }

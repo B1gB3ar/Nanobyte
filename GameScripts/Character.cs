@@ -10,12 +10,13 @@ public class Character {
 	public int numberOfSpawned;
 	public bool isMovingToAttack;
 	public bool isAttacking;
-
-	public AttackValues attackValues;
+	
 	public bool firstPass = true;
 	public Transform enemyPosition;
 	public int randNumb = 1;
 	public Vector3 finalPos;
+
+	public AttackValues attackValues;
 
 	public Character()
 	{

@@ -4,30 +4,24 @@ using UnityEngine.UI;
 
 public class LevelUpMenu : MonoBehaviour {
 
-	public GameObject levelUpMenu;
+	public bool endOfLevel;
+
+	public CanvasGroup levelUpMenu;
 	public RectTransform moveTo;
 	public RectTransform moveBack;
 	public bool moveToVisible;
 	public Text changeTo;
-	public string openLevelUp = "Open Level Up Menu";
-	public string closeLevelUp = "Close Level Up Menu";
 	public Color upgradedColor;
 	
 	public Button[,] tierArray;
-	public GameObject[] levelUpContainers = new GameObject[8];
+	public GameObject[] levelUpContainers = new GameObject[7];
 	public NanoByteIns nanoByte;
 	public GameObject attackRadius;
 	public Slider healthBar;
 	public Slider usageBar;
 
-	public void clickedToMoveMenu()
-	{
-		moveToVisible = !moveToVisible;
-		if(moveToVisible)
-			changeTo.text = closeLevelUp;
-		else
-			changeTo.text = openLevelUp;
-	}
+	public SpecialAttackKeys specialAttackKeys;
+	
 	public void clickedTier(Button button)
 	{
 		button.gameObject.GetComponent<Image>().color = upgradedColor;
@@ -43,7 +37,8 @@ public class LevelUpMenu : MonoBehaviour {
 			tierArray[int.Parse(button.GetComponentInParent<Transform>().parent.name.Split('-')[0]),
 			          int.Parse((button.name.Split('-')[0]))].interactable = false;
 		}
-		
+
+		//TODO Change these to work with the new special attacks
 		switch(button.name.Split('-')[1])
 		{
 		case "HealthLevel":
@@ -55,27 +50,25 @@ public class LevelUpMenu : MonoBehaviour {
 		case "StdAttLevel":
 			nanoByte.nanoByte.attackValues.levelUpAttack(10);
 			break;
-		case "AttRadiusLevel":
+		case "LasersLevel":
+			nanoByte.nanoByte.attackValues.levelUp_Lasers(10, 5);
+			break;
+		case "FlashFreezeLevel":
+			nanoByte.nanoByte.attackValues.levelUp_FlashFreeze(10, 5);
+			break;
+		case "SlowFreezeLevel":
 			attackRadius.GetComponent<CircleCollider2D>().radius = 
 				attackRadius.GetComponent<CircleCollider2D>().radius + 1;
 			break;
-		case "SpecAttOneLevel":
-			nanoByte.nanoByte.attackValues.levelUpSpec1Att(10, 5);
-			break;
-		case "SpecAttTwoLevel":
-			nanoByte.nanoByte.attackValues.levelUpSpec2Att(10, 5);
-			break;
-		case "SpecAttThreeLevel":
-			nanoByte.nanoByte.attackValues.levelUpSpec3Att(10, 5);
-			break;
-		case "SpecAttFourLevel":
-			nanoByte.nanoByte.attackValues.levelUpSpec4Att(10, 5);
+		case "StealthLevel":
+			nanoByte.nanoByte.attackValues.levelUp_Stealth(10, 5);
 			break;
 		default:
 			Debug.Log("No value matched");
 			break;
 
 		}
+		specialAttackKeys.updateAttacks();
 
 	}
 
@@ -110,19 +103,26 @@ public class LevelUpMenu : MonoBehaviour {
 
 	void Start()
 	{
-		levelUpMenu.transform.position = moveBack.position;
-		changeTo.text = openLevelUp;
+		levelUpMenu.alpha = 0;
+		levelUpMenu.interactable = false;
+		levelUpMenu.blocksRaycasts = false;
 	}
 
 	// Update is called once per frame
 	void Update () {
 
-		if(moveToVisible)
-			levelUpMenu.transform.position = Vector3.Lerp(levelUpMenu.transform.position, moveTo.position, 
-			                                              Time.deltaTime * 2.5f);
+		if(endOfLevel)
+		{
+			levelUpMenu.alpha = Mathf.Lerp(levelUpMenu.alpha, 1, Time.deltaTime * 2);
+			levelUpMenu.interactable = true;
+			levelUpMenu.blocksRaycasts = true;
+		}
 		else
-			levelUpMenu.transform.position = Vector3.Lerp(levelUpMenu.transform.position, moveBack.position, 
-			                                              Time.deltaTime * 2.5f);
+		{
+			levelUpMenu.alpha = Mathf.Lerp(levelUpMenu.alpha, 0, Time.deltaTime * 2);
+			levelUpMenu.interactable = false;
+			levelUpMenu.blocksRaycasts = false;
+		}
 	
 	}
 
