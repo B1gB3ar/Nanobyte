@@ -31,6 +31,9 @@ public class Character {
 		setLocation(aLocation);
 	}
 
+	/*
+	 * Mutators
+	 */ 
 	public void setHealth(float aHealthVal)
 	{
 		health = aHealthVal;
@@ -56,6 +59,9 @@ public class Character {
 		isAttacking = attack;
 	}
  
+	/*
+	 * Accessors
+	 */ 
 	public float getHealth()
 	{
 		return health;
@@ -81,6 +87,9 @@ public class Character {
 		return isAttacking;
 	}
 
+	/*
+	 * Reset functions
+	 */ 
 	public void resetFirstPass()
 	{
 		randNumb = Random.Range(1, 9);
@@ -91,6 +100,15 @@ public class Character {
 		this.setMoveToAttack(false);
 		this.setAttacking(false);
 		this.setEnemyPos(null);
+	}
+
+	/*
+	 * General Functions
+	 */ 
+
+	public void inflictDamage(float damage)
+	{
+		this.setHealth(this.getHealth() - damage);
 	}
 
 	public void spawn(GameObject characterGameObject, Character spawner,

@@ -45,9 +45,5 @@ public class NanoByte : Character {
 	{
 		healthBar.value = base.getHealth();
 	}
-	public void inflictDamage(float damage)
-	{
-		base.setHealth(base.getHealth() - damage);
-	}
 
 }
