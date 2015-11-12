@@ -1,0 +1,36 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/NanoByte/GameScripts/OuterPulp.cs">
+    <Files>
+      <File FileName="Assets/NanoByte/GameScripts/Enemy.cs" Line="16" Column="41" />
+      <File FileName="Assets/NanoByte/GameScripts/LevelUpMenu.cs" Line="1" Column="1" />
+      <File FileName="Assets/NanoByte/GameScripts/NanoByteIns.cs" Line="1" Column="1" />
+      <File FileName="Assets/NanoByte/GameScripts/Character.cs" Line="19" Column="34" />
+      <File FileName="Assets/NanoByte/GameScripts/DisplayValues.cs" Line="1" Column="1" />
+      <File FileName="Assets/NanoByte/GameScripts/AttackValues.cs" Line="1" Column="1" />
+      <File FileName="Assets/NanoByte/GameScripts/NanoByte.cs" Line="1" Column="1" />
+      <File FileName="Assets/NanoByte/GameScripts/CameraZoom.cs" Line="1" Column="1" />
+      <File FileName="Assets/NanoByte/GameScripts/SpecialAttackKeys.cs" Line="1" Column="1" />
+      <File FileName="Assets/NanoByte/GameScripts/HoverEnemy.cs" Line="1" Column="1" />
+      <File FileName="Assets/NanoByte/GameScripts/OuterPulp.cs" Line="10" Column="58" />
+      <File FileName="Assets/NanoByte/GameScripts/Pulp.cs" Line="10" Column="52" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State expanded="True">
+          <Node name="Assembly-CSharp" expanded="True">
+            <Node name="NanoByte" expanded="True">
+              <Node name="GameScripts" expanded="True">
+                <Node name="OuterPulp.cs" selected="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
