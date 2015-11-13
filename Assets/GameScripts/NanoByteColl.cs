@@ -5,6 +5,12 @@ using UnityEngine.EventSystems;
 public class NanoByteColl : MonoBehaviour {
 
 	string NanoBitString = "NanoBit";
+	public Transform transformObject;
+
+	void Awake()
+	{
+		transformObject = transform;
+	}
 
 	void OnTriggerStay2D(Collider2D coll)
 	{

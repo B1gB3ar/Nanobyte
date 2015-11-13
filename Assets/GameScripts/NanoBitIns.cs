@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class NanoBitIns : MonoBehaviour {
@@ -8,11 +8,14 @@ public class NanoBitIns : MonoBehaviour {
 	public float counterMovement = 0;
 	public bool goRight;
 	public bool moveOver;
+	public Transform transformObject;
 
 	void Awake()
 	{
-		if(GameObject.FindGameObjectWithTag("Player") != null)
-			nanoByte = GameObject.FindGameObjectWithTag("Player").GetComponent<NanoByteIns>();
+		if (GameObject.FindGameObjectWithTag ("Player") != null)
+			nanoByte = GameObject.FindGameObjectWithTag ("Player").GetComponent<NanoByteIns> ();
+		else
+			transformObject = transform;
 	}
 
 	void Update()
@@ -81,8 +84,10 @@ public class NanoBitIns : MonoBehaviour {
 		}
 		else if(!nanobit.isSelected && !nanobit.containedWithByte)
 		{
-			Debug.Log("Not selected or contained, moving back");
-			nanobit.moveBack(transform, nanoByte.transform);
+			if(nanoByte != null)
+				nanobit.moveBack(transform, nanoByte.transform);
+			else
+				nanobit.moveBack(transform, transformObject);
 		}
 	}
 }
