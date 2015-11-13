@@ -11,7 +11,8 @@ public class NanoBitIns : MonoBehaviour {
 
 	void Awake()
 	{
-		nanoByte = GameObject.FindGameObjectWithTag("Player").GetComponent<NanoByteIns>();
+		if(GameObject.FindGameObjectWithTag("Player") != null)
+			nanoByte = GameObject.FindGameObjectWithTag("Player").GetComponent<NanoByteIns>();
 	}
 
 	void Update()
