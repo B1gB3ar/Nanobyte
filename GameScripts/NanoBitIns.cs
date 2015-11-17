@@ -8,11 +8,8 @@ public class NanoBitIns : MonoBehaviour {
 	public float counterMovement = 0;
 	public bool goRight;
 	public bool moveOver;
-<<<<<<< HEAD:GameScripts/NanoBitIns.cs
 	public Color changeColor;
-	
-=======
->>>>>>> origin/master:Assets/GameScripts/NanoBitIns.cs
+
 	public Transform transformObject;
 
 	void Awake()
