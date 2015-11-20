@@ -9,7 +9,6 @@ public class NanoBitIns : MonoBehaviour {
 	public bool goRight;
 	public bool moveOver;
 	public Color changeColor;
-
 	public Transform transformObject;
 
 	void Awake()
