@@ -28,13 +28,16 @@ public class TextBoxReadIn : MonoBehaviour {
 
 	public RawImage[] imageArray;
 
+	public FadeOutIn fadeOutIn;
+
+	public GameObject textDisplay;
+
 	//public int totalAmountOfScenes = 0;
 
 	void Awake()
 	{
 		// !!! NOTE: We start at index one instead of zero !!!
 		fullTextDividedByScene = readInText.text.Split('@');
-		outputText();
 		//totalAmountOfScenes = fullTextDividedByScene.Length;	
 	}
 
@@ -60,9 +63,21 @@ public class TextBoxReadIn : MonoBehaviour {
 
 		if(currentLine == sceneLines.Length)
 		{
-			++currentScene;
-			sceneChanger.changeScene(currentScene - 1, imageArray);
-			currentLine = 0;
+			if(fadeOutIn.fadingIn)
+				fadeOutIn.fadeOut();
+
+			if(fadeOutIn.fading == false)
+			{
+				sceneChanger.changeScene(currentScene, imageArray, textDisplay);
+				++currentScene;
+				currentLine = 0;
+				characterText.text = "";
+				messageText.text = "";
+			}
+			else
+			{
+				fadeOutIn.fadeOut();
+			}
 		}
 		else if(sceneLines[currentLine] != "")
 		{
@@ -74,27 +89,27 @@ public class TextBoxReadIn : MonoBehaviour {
 		{
 			++currentLine;
 			outputText();
-		}
+		}	
 	}
 
 	IEnumerator typeText(int tempCurrLine)
 	{
 		characterText.text = sceneLines[tempCurrLine].Split(":"[0])[0];
-		Debug.Log(characterText.text + "1");
+		//Debug.Log(characterText.text + "1");
 		switch(characterText.text)
 		{
 		case "Fredrick Salm ":
-			Debug.Log("CASE ONE");
+			//Debug.Log("CASE ONE");
 			leftImage.texture = FredSalm.texture;
 			rightImage.texture = null;
 			break;
 		case "Cassandra Salm ":
-			Debug.Log("CASE TWO");
+			//Debug.Log("CASE TWO");
 			leftImage.texture = null;
 			rightImage.texture = CassSalm.texture;
 			break;
 		default:
-			Debug.Log("CASE DEF");
+			//Debug.Log("CASE DEF");
 			leftImage.texture = null;
 			rightImage.texture = null;
 			break;

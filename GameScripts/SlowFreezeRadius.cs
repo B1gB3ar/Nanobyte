@@ -36,7 +36,7 @@ public class SlowFreezeRadius : MonoBehaviour {
 					Debug.Log("Enemy");
 					nanoBit.setMoveToAttack(true);
 					nanoBit.setContainment(false);
-					nanoBit.setEnemyPos(coll.transform);
+					nanoBit.setEnemyPos(coll.transform.position);
 				}
 			}
 		}

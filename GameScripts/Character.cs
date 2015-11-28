@@ -12,7 +12,7 @@ public class Character {
 	public bool isAttacking;
 	
 	public bool firstPass = true;
-	public Transform enemyPosition;
+	public Vector3 enemyPosition;
 	public int randNumb = 1;
 	public Vector3 finalPos;
 
@@ -46,8 +46,9 @@ public class Character {
 	{
 		location = aLocation;
 	}
-	public void setEnemyPos(Transform enemyPos)
+	public void setEnemyPos(Vector3 enemyPos)
 	{
+		enemyPos = new Vector3(enemyPos.x, enemyPos.y, 0);
 		enemyPosition = enemyPos;
 	}
 	public void setMoveToAttack(bool moveTo)
@@ -74,7 +75,7 @@ public class Character {
 	{
 		return location;
 	}
-	public Transform getEnemyPos()
+	public Vector3 getEnemyPos()
 	{
 		return enemyPosition;
 	}
@@ -99,7 +100,7 @@ public class Character {
 	{
 		this.setMoveToAttack(false);
 		this.setAttacking(false);
-		this.setEnemyPos(null);
+		this.setEnemyPos(Vector3.zero);
 	}
 
 	/*
@@ -126,9 +127,9 @@ public class Character {
 		currPos.position = Vector3.MoveTowards(currPos.position, initialPos.position, Time.deltaTime * 6f);
 	}
 
-	public void moveToAttack(Transform currPos, Transform enemyPos)
+	public void moveToAttack(Transform currPos, Vector3 enemyPos)
 	{
-		currPos.position = Vector3.MoveTowards(currPos.position, enemyPos.position, Time.deltaTime * 4f);
+		currPos.position = Vector3.MoveTowards(currPos.position, enemyPos, Time.deltaTime * 4f);
 	}
 	
 	public void startToAttack(Transform currPos, Transform enemyPos)
@@ -220,7 +221,7 @@ public class Character {
 
 		if(currPos.position.x >= finalPos.x - .1f)
 		{
-			Debug.Log("Reached");
+//			Debug.Log("Reached");
 			resetFirstPass();
 		}
 		currPos.rotation = Quaternion.Euler(0f, 0f, heading * Mathf.Rad2Deg);

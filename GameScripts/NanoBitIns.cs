@@ -25,7 +25,7 @@ public class NanoBitIns : MonoBehaviour {
 		//TODO FIX THIS AWFUL LOOKING CODE
 		if(nanobit.isMovingToAttack && nanobit.isSelected)
 		{
-			Debug.Log("Attacking from selection");
+			//Debug.Log("Attacking from selection");
 			nanobit.moveToAttack(transform, nanobit.getEnemyPos());
 			/*if(moveOver)
 			{
@@ -46,19 +46,19 @@ public class NanoBitIns : MonoBehaviour {
 					                                 Time.deltaTime * 3));
 				}
 			}*/
-			Vector3 dir = nanobit.getEnemyPos().position - transform.position;
+			Vector3 dir = nanobit.getEnemyPos() - transform.position;
 			float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 270;
 			transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 		}
 				                        
 		if(nanobit.isSelected)
 		{
-			Debug.Log("Is Selected");
+			//Debug.Log("Is Selected");
 			nanobit.stopNanoBitMovement();
 		}
 		else if(nanobit.containedWithByte)
 		{
-			Debug.Log("Contained within Byte");
+//			Debug.Log("Contained within Byte");
 			if(counterMovement >= 0.1f)
 			{
 				nanobit.charMovement(transform, 0.2f, 5);
@@ -67,16 +67,16 @@ public class NanoBitIns : MonoBehaviour {
 		}
 		else if(nanobit.isMovingToAttack)
 		{
-			Debug.Log("Moving to Attack");
+			//Debug.Log("Moving to Attack");
 			nanobit.moveToAttack(transform, nanobit.getEnemyPos());
-			Vector3 dir = nanobit.getEnemyPos().position - transform.position;
+			Vector3 dir = nanobit.getEnemyPos() - transform.position;
 			float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 270;
 			transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 		}
 		else if(nanobit.isAttacking)
 		{
 			//TODO
-			Debug.Log("Attacking");
+			//Debug.Log("Attacking");
 		}
 		else if(!nanobit.isSelected && !nanobit.containedWithByte)
 		{
